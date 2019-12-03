@@ -16,57 +16,34 @@ import List from '../commons/List';
 
 import UserItem from './lists/UserItem';
 import CompanyItem from './lists/CompanyItem';
+import useExampleList from './useExampleList';
 
 const Grid = styled(MuiGrid)(spacing);
 const useStyles = makeStyles(styles);
 
-const Titles = {
-    REGISTERED_USERS: 'Registered Users',
-    COMPANIES: 'Companies',
-};
+
 
 function Examples(props){
 
-    const users = useSelector(state => state.examples.users);
-    const companies = useSelector(state => state.examples.companies);
-    const dispatch = useDispatch();
-
-    const {
-        getUsers,
-        getCompanies,
-    } = dispatch.examples;
-
+    const classes = useStyles();
     const userItemRenderer = (item) => (<UserItem data={item} />);
     const companyItemRenderer = (item) => (<CompanyItem data={item} />);
+
+    const {
+        itemRenderer,
+        dataSource,
+        title,
+        getCompanies,
+        getUsers,
+    } = useExampleList(userItemRenderer, companyItemRenderer);
     
-    const [itemRenderer, setItemRenderer] = useState({renderer:userItemRenderer});
-    const [dataSource, setDataSource] = useState(users);
-    const [listTitle, setListTitle] = useState(Titles.REGISTERED_USERS);
-    const classes = useStyles();
-
-    useEffect(()=>{
-        setDataSource(users);
-        setItemRenderer({ renderer:userItemRenderer});
-    }, [users]);
-
-    useEffect(()=>{
-        setDataSource(companies);
-        setItemRenderer({renderer:companyItemRenderer});
-    }, [companies]);
-
     const handleUsersClick = (event) => {
         getUsers();
-        setListTitle(Titles.REGISTERED_USERS);
     };
 
     const handleCompaniesClick = (event) => {
-        setListTitle(Titles.COMPANIES);
         getCompanies();
     }
-
-    useEffect(()=>{
-        getUsers();
-    }, []);
 
     return (
         <div className={classes.fullView}>
@@ -89,7 +66,7 @@ function Examples(props){
                     <Grid container item xs={12} className={classes.listTitle} 
                         pl={2} mb={2}
                         alignContent="center" justifyContent="center">
-                        <Grid item>  {listTitle} </Grid>
+                        <Grid item>  {title} </Grid>
                     </Grid>
                     <List
                         data={dataSource}
