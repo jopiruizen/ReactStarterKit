@@ -1,5 +1,10 @@
 import React, { memo, useEffect } from 'react'; 
-import { Grid } from '@material-ui/core';
+
+import MuiGrid from '@material-ui/core/Grid';
+import { spacing } from '@material-ui/system';
+import { styled } from '@material-ui/styles';
+
+ 
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -8,12 +13,15 @@ import { getUsersState } from './models/selectors';
 import makeStyles from '@material-ui/styles/makeStyles';
 import styles from './styles';
 import Menu from './Menu';
+import Footer from '../commons/Footer';
+import List from '../commons/List';
 
+const Grid = styled(MuiGrid)(spacing);
 const useStyles = makeStyles(styles);
 
 function Examples(props){
     const {
-        users,
+        users, 
         getUsers,
     } = props;
 
@@ -46,15 +54,29 @@ function Examples(props){
     }
 
     return (
-        <Grid container>
-            <Grid item xs={6} className={classes.content}>
-                <div> Select A List! </div>
-                <Menu 
-                    onUsersClick={handleUsersClick}
-                    onCompanyClick={handleCompaniesClick}
-                />
+        <div className={classes.fullView}>
+            <Grid container xs={12} className={classes.fullContent}>
+                <Grid container item xs={3} 
+                    className={classes.sideContent}
+                    alignContent='flex-start' 
+                    p={2}
+                    >
+                    <Grid container item xs={12} className={classes.menu}>
+                        <Grid item xs={12} className={classes.menuTitle}> Select A List! </Grid>
+                        <Menu 
+                            onUsersClick={handleUsersClick}
+                            onCompanyClick={handleCompaniesClick}
+                        />
+                    </Grid>
+                </Grid>
+
+                <Grid container item xs={8}>
+                    <List />
+                </Grid>
             </Grid>
-        </Grid>
+            
+            <Footer />
+        </div>
     )
 };
 

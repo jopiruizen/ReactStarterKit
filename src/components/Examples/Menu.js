@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Button } from '@material-ui/core';
+import { Grid as MuiGrid, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
+import { spacing } from '@material-ui/system';
+import { styled } from '@material-ui/styles';
 
 import styles from './styles';
 
+const Grid = styled(MuiGrid)(spacing);
 const useStyles = makeStyles(styles);
 
 function Menu (props) {
@@ -15,13 +18,26 @@ function Menu (props) {
     const classes = useStyles();
     
     return (
-        <Grid xs={12}>
-            <Button  variant="outlined" color="primary" onClick={onUsersClick}>
-                Show Users
-            </Button>
-            <Button variant="outlined" color="primary" onClick={onCompanyClick}>
-                Show Companies
-            </Button>
+        <Grid container item xs={12}  justifyContent="center" alignContent="flex-start">
+            <Grid item xs={12} pb={2}>
+                <Button className={classes.menuButton}
+                    variant="outlined"
+                    color="primary"
+                    onClick={onUsersClick}
+                >
+                    Show Users
+                </Button>
+            </Grid>
+            <Grid item xs={12} >
+                <Button xs={12}
+                    className={classes.menuButton}
+                    variant="outlined"
+                    color="primary"
+                    onClick={onCompanyClick}
+                >
+                    Show Companies
+                </Button>
+            </Grid>
         </Grid>
     )
 }

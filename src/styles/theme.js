@@ -11,6 +11,7 @@ export const theme = createMuiTheme({
     },
   },
 
+  
   palette: {
       type: 'light',
     primary: {
