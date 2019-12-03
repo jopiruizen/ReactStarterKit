@@ -30,11 +30,6 @@ export default ListItem;
 
 
 export const defaultItemRenderer = ( item ) => {
-    console.log("");
-    console.log("");
-    console.log("");
-    console.log("Rendering Default Item...");
-    console.log(item);
     return (
         <ListItem data={item} />
     )

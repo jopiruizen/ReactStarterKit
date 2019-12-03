@@ -20,16 +20,8 @@ function List(props){
     
     function renderListItems(){
         const items = data.map((item) => itemRenderer(item));
-
-        console.log( items );
         return items;
     }
- 
-
-    console.log("");
-    console.log("");
-    console.log("");
-    console.log("Rendering List");
 
     return (
         <Grid container item xs={12}  className={className}>
