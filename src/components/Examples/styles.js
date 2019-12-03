@@ -9,16 +9,26 @@ const styles = (theme) => ({
 
     fullContent: {
       height: '100%',
-
     },
 
+    listContent: {
+      backgroundColor: '#F1F1F1',
+      height: '100%',
+    },
+
+    listTitle: {
+      height: '40px',
+      fontSize: '28px',
+      color: '#747474',
+    },
 
     sideContent: {
-      backgroundColor: '#F1F1F1',
+      backgroundColor: '#CDCDCD',
       minHeight:'200px',
       height: '100%',
       padding: '24px, 24px important',
     },
+
     menu: {
       padding: theme.spacing(2,2),
     },

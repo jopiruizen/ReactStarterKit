@@ -11,3 +11,9 @@ export const getUsersState = createSelector(
   [getUsers],
   data => data,
 );
+
+const getCompanies = state => state.examples.companies;
+export const getCompaniesState = createSelector(
+  [getCompanies],
+  data => data,
+);

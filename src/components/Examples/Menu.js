@@ -25,7 +25,7 @@ function Menu (props) {
                     color="primary"
                     onClick={onUsersClick}
                 >
-                    Show Users
+                    Registered Users
                 </Button>
             </Grid>
             <Grid item xs={12} >
@@ -35,7 +35,7 @@ function Menu (props) {
                     color="primary"
                     onClick={onCompanyClick}
                 >
-                    Show Companies
+                    Companies
                 </Button>
             </Grid>
         </Grid>
