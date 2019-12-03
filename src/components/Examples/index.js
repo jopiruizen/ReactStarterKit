@@ -1,11 +1,7 @@
-import React, { memo, useEffect, useState } from 'react'; 
-
+import React, { memo } from 'react'; 
 import MuiGrid from '@material-ui/core/Grid';
 import { spacing } from '@material-ui/system';
 import { styled } from '@material-ui/styles';
-
-import PropTypes from 'prop-types';
-import { useSelector, useDispatch  } from 'react-redux';
 import { compose } from 'redux';
 
 import makeStyles from '@material-ui/styles/makeStyles';
@@ -21,22 +17,21 @@ import useExampleList from './useExampleList';
 const Grid = styled(MuiGrid)(spacing);
 const useStyles = makeStyles(styles);
 
-
-
 function Examples(props){
 
     const classes = useStyles();
     const userItemRenderer = (item) => (<UserItem data={item} />);
     const companyItemRenderer = (item) => (<CompanyItem data={item} />);
 
+    const exState = useExampleList(userItemRenderer, companyItemRenderer);
     const {
         itemRenderer,
         dataSource,
         title,
         getCompanies,
         getUsers,
-    } = useExampleList(userItemRenderer, companyItemRenderer);
-    
+    } = exState;
+
     const handleUsersClick = (event) => {
         getUsers();
     };
@@ -45,6 +40,8 @@ function Examples(props){
         getCompanies();
     }
 
+    console.log("rerendering...");
+    console.log(exState);
     return (
         <div className={classes.fullView}>
             <Grid container xs={12} className={classes.fullContent}>
