@@ -1,31 +1,24 @@
 import { dispatch } from '../../../store';
-import { getUsersAPI } from '../../../api/users'; 
+import { getUsersAPI, getCompaniesAPI } from '../../../api/users'; 
 
-export async function getExamples() {
+export async function getUsers() {
     try {
-      
+        const data = await getUsersAPI();
+        this.setUsers(data.users);
     } catch (error) {
-      
+        console.log("");
+        console.log("Error#");
+        console.log(error);
     } finally {
        
     }
 }
 
-export async function getUsers() {
+export async function getCompanies() {
     try {
-        console.log("");
-        console.log("");
-        console.log("");
-        console.log("");
-        console.log("effects.getUsers()");
-        const data = await getUsersAPI();
-        console.log("End response is coming with data users: ...");
-        console.log(data);
-        this.setUsers(data.users);
+        const data = await getCompaniesAPI();
+        this.setCompanies(data.companies);
     } catch (error) {
-        console.log("");
-        console.log("");
-        console.log("");
         console.log("");
         console.log("Error#");
         console.log(error);

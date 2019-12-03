@@ -7,11 +7,6 @@ const styles = (theme) => ({
       width: '100%',
     },
 
-    leftContent: {
-        backgroundColor: '#FF9900',
-        minHeight: '100%',
-    },
-
   });
   
   export default styles;

@@ -5,8 +5,6 @@ import { Grid as MuiGrid } from '@material-ui/core';
 import { spacing } from '@material-ui/system';
 import { styled } from '@material-ui/styles';
 
-
-
 import { defaultItemRenderer, defaultListData } from './ListItem';
 
 const Grid = styled(MuiGrid)(spacing);
@@ -24,7 +22,7 @@ function List(props){
     }
 
     return (
-        <Grid container item xs={12}  className={className}>
+        <Grid container item xs={12}  className={className} alignContent={"flex-start"}>
             {renderListItems()}
         </Grid>
     )
