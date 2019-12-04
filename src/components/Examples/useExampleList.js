@@ -1,4 +1,4 @@
-import  { useState, useEffect } from 'react';
+import  { useEffect, useReducer } from 'react';
 import { useSelector, useDispatch  } from 'react-redux';
 
 const Titles = {
@@ -6,8 +6,23 @@ const Titles = {
     COMPANIES: 'Companies',
 };
 
-function useExampleList ( userItemRenderer, companyItemRenderer) {
+const reducerMapping = {
+    all: (state, action) => ({
+        ...state, 
+        title: action.title,
+        dataSource: action.dataSource,
+        itemRenderer: action.itemRenderer,
+    }),
+}
 
+const reducer = (state, action) => {
+    if (action.type && reducerMapping[action.type]) {
+        return reducerMapping[action.type](state,action);
+    }
+    return state;
+}; 
+
+function useExampleList ( userItemRenderer, companyItemRenderer) {
     const users = useSelector(state => state.examples.users);
     const companies = useSelector(state => state.examples.companies);
     const dispatch = useDispatch();
@@ -17,30 +32,38 @@ function useExampleList ( userItemRenderer, companyItemRenderer) {
         getCompanies,
     } = dispatch.examples;
 
-    const [itemRenderer, setItemRenderer] = useState({renderer:userItemRenderer});
-    const [dataSource, setDataSource] = useState(users);
-    const [title, setTitle] = useState(Titles.REGISTERED_USERS);
+    const defaultState =  {
+        dataSource: [],
+        title: Titles.REGISTERED_USERS,
+        itemRenderer: { renderer: userItemRenderer },
+    }
 
+    const [reducedState , reducerDispatch ] = useReducer(reducer, defaultState);
+    
     useEffect(()=>{
-        setDataSource(users);
-        setItemRenderer({ renderer:userItemRenderer});
-        setTitle(Titles.REGISTERED_USERS);
+       reducerDispatch({
+           type: 'all',
+           dataSource: users,
+           title: Titles.REGISTERED_USERS,
+           itemRenderer: { renderer: userItemRenderer },
+       });
     }, [users]);
 
     useEffect(()=>{
-        setDataSource(companies);
-        setItemRenderer({renderer:companyItemRenderer});
-        setTitle(Titles.COMPANIES);
+       reducerDispatch({
+            type: 'all',
+            dataSource: companies,
+            title: Titles.COMPANIES,
+            itemRenderer: { renderer: companyItemRenderer },
+        });
     }, [companies]);
 
     useEffect(()=>{
-        getUsers();
+      getUsers();
     }, []);
 
     return {
-        itemRenderer,
-        dataSource,
-        title,
+        ...reducedState,
         getUsers,
         getCompanies,
     };
